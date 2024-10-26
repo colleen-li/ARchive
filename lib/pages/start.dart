@@ -31,20 +31,21 @@ class _StartPage extends State<StartPage> {
               top: 100,
               left: 50,
               child: Container(
-                alignment: Alignment.center,
-                child: Image.asset(
-                  "assets/images/archive.png",
-                  height: 150,
-                  width: 330,
-                )
-              ),
+                  alignment: Alignment.center,
+                  child: Image.asset(
+                    "assets/images/archive.png",
+                    height: 150,
+                    width: 330,
+                  )),
             ),
             Positioned(
               top: 250,
               left: 100,
               child: Container(
                 alignment: Alignment.center,
-                child: Text('Welcome Back.', style: TextStyle(fontStyle: FontStyle.italic, fontSize: 35)),
+                child: const Text('Welcome Back.',
+                    style:
+                        TextStyle(fontStyle: FontStyle.italic, fontSize: 35)),
               ),
             ),
             Positioned(
@@ -52,7 +53,7 @@ class _StartPage extends State<StartPage> {
               left: 120,
               child: Container(
                 alignment: Alignment.center,
-                child: Text('Log in with your account.'),
+                child: const Text('Log in with your account.'),
               ),
             ),
             Positioned(
@@ -61,13 +62,14 @@ class _StartPage extends State<StartPage> {
                 alignment: Alignment.center,
                 width: 350.0,
                 height: 400.0,
-                padding: EdgeInsets.all(35),
-                margin: EdgeInsets.all(20),
+                padding: const EdgeInsets.all(35),
+                margin: const EdgeInsets.all(20),
                 decoration: BoxDecoration(
-                  border: Border.all(width: 3.0, color: const Color(0xffD5C7BC)),
+                  border:
+                      Border.all(width: 3.0, color: const Color(0xffD5C7BC)),
                   borderRadius: BorderRadius.circular(8),
                   boxShadow: [
-                    new BoxShadow(color: const Color(0xffF1FFFA)),
+                    const BoxShadow(color: const Color(0xffF1FFFA)),
                   ],
                 ),
               ),

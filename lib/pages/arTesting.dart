@@ -1,4 +1,3 @@
-import 'dart:math' as math;
 import 'package:arkit_plugin/arkit_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
@@ -12,7 +11,6 @@ class ArTesting extends StatefulWidget {
 }
 
 class _ArTesting extends State<ArTesting> {
-
   late ARKitController arkitController;
   // ARKitPlane? plane;
   // ARKitNode? node;
@@ -26,7 +24,7 @@ class _ArTesting extends State<ArTesting> {
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
-      child: Container(
+          child: Container(
         child: ARKitSceneView(
           onARKitViewCreated: onARKitViewCreated,
           environmentTexturing:
@@ -34,26 +32,25 @@ class _ArTesting extends State<ArTesting> {
         ),
       ));
 
-  
-    void onARKitViewCreated(ARKitController arkitController) {
-      this.arkitController = arkitController;
-      this.arkitController.add(_createText());
-    }
+  void onARKitViewCreated(ARKitController arkitController) {
+    this.arkitController = arkitController;
+    this.arkitController.add(_createText());
+  }
 
-    ARKitNode _createText() {
-      final text = ARKitText(
-        text: 'Hello World!',
-        extrusionDepth: 1,
-        materials: [
-          ARKitMaterial(
-            diffuse: ARKitMaterialProperty.color(Colors.blue),
-          )
-        ],
-      );
-      return ARKitNode(
-        geometry: text,
-        position: vector.Vector3(-0.3, 0.3, -1.4),
-        scale: vector.Vector3(0.02, 0.02, 0.02),
-      );
-    }
+  ARKitNode _createText() {
+    final text = ARKitText(
+      text: 'Hello World!',
+      extrusionDepth: 1,
+      materials: [
+        ARKitMaterial(
+          diffuse: ARKitMaterialProperty.color(Colors.blue),
+        )
+      ],
+    );
+    return ARKitNode(
+      geometry: text,
+      position: vector.Vector3(-0.3, 0.3, -1.4),
+      scale: vector.Vector3(0.02, 0.02, 0.02),
+    );
+  }
 }
