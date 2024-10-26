@@ -34,7 +34,7 @@ class ARchive extends StatelessWidget {
       theme: const CupertinoThemeData(
         brightness: Brightness.dark,
       ),
-      home: user != null ? const MainTabNavigator() : const StartPage(),
+      home: user != null ? const MainTabNavigator() : const MainTabNavigator(),
     ));
   }
 }
