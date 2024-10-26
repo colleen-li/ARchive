@@ -73,7 +73,7 @@ flutter:
         - asset: assets/fonts/ARchive_Icons.ttf
 
   assets:
-    - assets/images/background.jpg
+    - assets/images/
     - assets/fonts/
     - assets/svg/
     - assets/icons/
