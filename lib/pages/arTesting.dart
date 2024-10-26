@@ -1,3 +1,7 @@
+import 'dart:math' as math;
+import 'package:arkit_plugin/arkit_plugin.dart';
+import 'package:flutter/material.dart';
+import 'package:vector_math/vector_math_64.dart' as vector;
 import 'package:flutter/cupertino.dart';
 
 class ArTesting extends StatefulWidget {
@@ -21,11 +25,8 @@ class _ArTesting extends State<ArTesting> {
   }
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-        title: const Text('Hello World Hackathon'),
-      ),
-      body: Container(
+  Widget build(BuildContext context) => CupertinoPageScaffold(
+      child: Container(
         child: ARKitSceneView(
           onARKitViewCreated: onARKitViewCreated,
           environmentTexturing:

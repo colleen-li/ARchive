@@ -26,11 +26,8 @@
 	<string>$(FLUTTER_BUILD_NUMBER)</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
-<<<<<<< HEAD
 	<key>NSCameraUsageDescription</key>
 	<string>PLEASE WE NEED YOUR CAMERA TO RUN THE APP</string>
-=======
->>>>>>> 94e077904b354117f5814527da38e2b119a6cdc8
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 	<key>UILaunchStoryboardName</key>

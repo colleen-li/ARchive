@@ -1,9 +1,5 @@
 # Uncomment this line to define a global platform for your project
-<<<<<<< HEAD
-# platform :ios, '12.0'
-=======
 platform :ios, '13.0'
->>>>>>> 94e077904b354117f5814527da38e2b119a6cdc8
 
 # CocoaPods analytics sends network stats synchronously affecting flutter build latency.
 ENV['COCOAPODS_DISABLE_STATS'] = 'true'
@@ -35,13 +31,10 @@ target 'Runner' do
   use_frameworks!
   use_modular_headers!
 
-<<<<<<< HEAD
-=======
   pod 'FirebaseFirestore',
     :git => 'https://github.com/invertase/firestore-ios-sdk-frameworks.git',
     :tag => '11.2.0'
 
->>>>>>> 94e077904b354117f5814527da38e2b119a6cdc8
   flutter_install_all_ios_pods File.dirname(File.realpath(__FILE__))
   target 'RunnerTests' do
     inherit! :search_paths
