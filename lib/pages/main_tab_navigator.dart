@@ -1,4 +1,5 @@
-import 'package:archive/pages/start.dart';
+import 'package:archive/common/custom_icons.dart';
+import 'package:archive/pages/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
 
@@ -15,14 +16,14 @@ class MainTabNavigator extends StatelessWidget {
         onTap: (value) => {HapticFeedback.selectionClick()},
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(CupertinoIcons.home
+            icon: Icon(ARchiveIcons.home
                 // shadows: [Shadow(blurRadius: 3, color: Color.fromARGB(255, 255, 255, 255), offset: Offset(0, 0))],
                 ),
             // label: "Home"
           ),
           BottomNavigationBarItem(
             icon: Icon(
-              CupertinoIcons.gear,
+              ARchiveIcons.cog,
               // shadows: [Shadow(blurRadius: 3, color: Color.fromARGB(255, 255, 255, 255), offset: Offset(0, 0))],
             ),
             // label: "Bulletin"
@@ -33,7 +34,7 @@ class MainTabNavigator extends StatelessWidget {
         return CupertinoTabView(builder: (BuildContext context) {
           return Stack(
             children: [
-              index == 0 ? const StartPage() : const StartPage(),
+              index == 0 ? const HomePage() : const HomePage(),
               Positioned(
                   bottom: 0,
                   child: Container(
@@ -57,22 +58,14 @@ class MainTabNavigator extends StatelessWidget {
                     height: 5,
                     width: 75,
                     decoration: const BoxDecoration(
-                      gradient: LinearGradient(
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                        tileMode: TileMode.mirror,
-                        colors: [
-                          Color.fromARGB(255, 154, 106, 255),
-                          Color.fromARGB(255, 239, 192, 23),
-                        ],
-                      ),
+                      color: Color.fromARGB(255, 147, 183, 190),
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(5),
                         bottomRight: Radius.circular(5),
                       ),
                       boxShadow: [
                         BoxShadow(
-                            color: Color.fromARGB(255, 172, 125, 206),
+                            color: Color.fromARGB(255, 147, 183, 190),
                             blurRadius: 10,
                             offset: Offset(0, 1)),
                       ],
