@@ -1,4 +1,4 @@
-package com.example.archive
+package com.mahitm.hello-archive
 
 import io.flutter.embedding.android.FlutterActivity
 

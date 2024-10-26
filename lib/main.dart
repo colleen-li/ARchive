@@ -1,79 +1,39 @@
-import 'dart:math' as math;
-import 'package:arkit_plugin/arkit_plugin.dart';
-import 'package:flutter/material.dart';
-import 'package:vector_math/vector_math_64.dart' as vector;
+import 'package:archive/firebase_options.dart';
+import 'package:archive/pages/main_tab_navigator.dart';
+import 'package:archive/pages/start.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter_cupernino_bottom_sheet/flutter_cupernino_bottom_sheet.dart';
 
-void main() {
-  runApp(const MyApp());
+main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+
+  User? user = FirebaseAuth.instance.currentUser;
+
+  runApp(ARchive(user: user));
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class ARchive extends StatelessWidget {
+  final User? user;
 
+  const ARchive({super.key, required this.user});
+
+  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Flutter Demo',
-      theme: ThemeData(
-        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
-        useMaterial3: true,
+    return CupertinoBottomSheetRepaintBoundary(
+        child: CupertinoApp(
+      title: "ARchive",
+      navigatorKey: cupertinoBottomSheetNavigatorKey,
+      debugShowCheckedModeBanner: false,
+      theme: const CupertinoThemeData(
+        brightness: Brightness.dark,
       ),
-      home: MyHomePage(),
-    );
+      home: user != null ? const MainTabNavigator() : const StartPage(),
+    ));
   }
-}
-
-class MyHomePage extends StatefulWidget {
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  late ARKitController arkitController;
-  ARKitPlane? plane;
-  ARKitNode? node;
-  String? anchorId;
-
-  @override
-  void dispose() {
-    arkitController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => Scaffold(
-      appBar: AppBar(
-        title: const Text('Hello World Hackathon'),
-      ),
-      body: Container(
-        child: ARKitSceneView(
-          onARKitViewCreated: onARKitViewCreated,
-          environmentTexturing:
-              ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
-        ),
-      ));
-
-  
-    void onARKitViewCreated(ARKitController arkitController) {
-      this.arkitController = arkitController;
-      this.arkitController.add(_createText());
-    }
-
-    ARKitNode _createText() {
-      final text = ARKitText(
-        text: 'Hello World!',
-        extrusionDepth: 1,
-        materials: [
-          ARKitMaterial(
-            diffuse: ARKitMaterialProperty.color(Colors.blue),
-          )
-        ],
-      );
-      return ARKitNode(
-        geometry: text,
-        position: vector.Vector3(-0.3, 0.3, -1.4),
-        scale: vector.Vector3(0.02, 0.02, 0.02),
-      );
-    }
-
 }
