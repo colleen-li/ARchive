@@ -1,4 +1,4 @@
-package com.example.archive
+package com.mahitm.archive
 
 import io.flutter.embedding.android.FlutterActivity
 
