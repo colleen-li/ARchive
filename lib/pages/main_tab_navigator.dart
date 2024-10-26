@@ -2,6 +2,7 @@ import 'package:archive/common/custom_icons.dart';
 import 'package:archive/pages/home.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/services.dart';
+import 'package:archive/pages/profile.dart';
 
 class MainTabNavigator extends StatelessWidget {
   const MainTabNavigator({super.key});
@@ -34,7 +35,7 @@ class MainTabNavigator extends StatelessWidget {
         return CupertinoTabView(builder: (BuildContext context) {
           return Stack(
             children: [
-              index == 0 ? const HomePage() : const HomePage(),
+              index == 0 ? const HomePage() : const ProfilePage(),
               Positioned(
                   bottom: 0,
                   child: Container(
