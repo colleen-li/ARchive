@@ -9,7 +9,7 @@
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.mahitm.archive</string>
+	<string>com.mahitm.hello-archive.RunnerTests</string>
 	<key>PROJECT_ID</key>
 	<string>archive-2e8f3</string>
 	<key>STORAGE_BUCKET</key>
@@ -25,6 +25,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:834384860311:ios:a433a2427be0b3da9785d2</string>
+	<string>1:834384860311:ios:04e599d87b966a5e9785d2</string>
 </dict>
 </plist>
