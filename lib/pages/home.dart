@@ -10,7 +10,7 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePage extends State<HomePage> {
-  bool _quote = false;
+  bool _liked = false;
 
   @override
   Widget build(BuildContext context) {
@@ -31,8 +31,13 @@ class _HomePage extends State<HomePage> {
         Container(
           padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
           child: PostToolbar(
-            liked: false,
-            likes: 142,
+            liked: _liked,
+            likes: 142 + (_liked ? 1 : 0),
+            onLike: () {
+              setState(() {
+                _liked = !_liked;
+              });
+            },
             date: "10/24/24",
           ),
         )
