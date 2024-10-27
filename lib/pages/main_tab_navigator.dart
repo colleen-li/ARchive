@@ -1,8 +1,10 @@
 import 'package:archive/common/custom_icons.dart';
 import 'package:archive/pages/home.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:archive/pages/profile.dart';
+import 'package:heroicons/heroicons.dart';
 
 class MainTabNavigator extends StatelessWidget {
   const MainTabNavigator({super.key});
@@ -17,18 +19,21 @@ class MainTabNavigator extends StatelessWidget {
         onTap: (value) => {HapticFeedback.selectionClick()},
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(ARchiveIcons.home
-                // shadows: [Shadow(blurRadius: 3, color: Color.fromARGB(255, 255, 255, 255), offset: Offset(0, 0))],
-                ),
-            // label: "Home"
-          ),
+              icon: HeroIcon(
+            HeroIcons.homeModern,
+            style: HeroIconStyle.outline, // Outlined icons are used by default.
+            color: Colors.white,
+            size: 30,
+          )),
           BottomNavigationBarItem(
-            icon: Icon(
-              ARchiveIcons.cog,
-              // shadows: [Shadow(blurRadius: 3, color: Color.fromARGB(255, 255, 255, 255), offset: Offset(0, 0))],
-            ),
-            // label: "Bulletin"
-          ),
+              icon: HeroIcon(
+            HeroIcons.user,
+            style: HeroIconStyle.outline, // Outlined icons are used by default.
+            color: Colors.white,
+            size: 30,
+          )
+              // label: "Bulletin"
+              ),
         ],
       ),
       tabBuilder: (BuildContext context, int index) {

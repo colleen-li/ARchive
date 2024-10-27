@@ -41,6 +41,10 @@ dependencies:
   firebase_auth: ^5.3.1
   flutter_cupernino_bottom_sheet: ^1.0.8
   flutter_svg: ^2.0.10+1
+  heroicons: ^0.10.0
+  google_sign_in: ^6.2.1
+  vector_math: ^2.1.4
+  modal_bottom_sheet: ^3.0.0
 
 dev_dependencies:
   flutter_test:
@@ -51,7 +55,7 @@ dev_dependencies:
   # activated in the `analysis_options.yaml` file located at the root of your
   # package. See that file for information about deactivating specific lint
   # rules and activating additional ones.
-  flutter_lints: ^4.0.0
+  flutter_lints: ^5.0.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
@@ -70,9 +74,10 @@ flutter:
         - asset: assets/fonts/ARchive_Icons.ttf
 
   assets:
-    - assets/images/background.jpg
+    - assets/images/
     - assets/fonts/
     - assets/svg/
+    - assets/icons/
     - assets/images/archive.png
 
   # An image asset can refer to one or more resolution-specific "variants", see

@@ -1,8 +1,8 @@
-import 'dart:math' as math;
 import 'package:arkit_plugin/arkit_plugin.dart';
 import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 import 'package:flutter/cupertino.dart';
+import 'dart:math' as math;
 
 
 class ArTesting extends StatefulWidget {
@@ -32,6 +32,7 @@ class _ArTesting extends State<ArTesting> {
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
+<<<<<<< HEAD
     child: GestureDetector(
       // onScaleStart: _onScaleStart,
       // onScaleUpdate: _onScaleUpdate,
@@ -44,6 +45,18 @@ class _ArTesting extends State<ArTesting> {
       ),
     ),
   );
+=======
+          child: GestureDetector(
+              // onScaleStart: _onScaleStart,
+              // onScaleUpdate: _onScaleUpdate,
+              child: ARKitSceneView(
+        showFeaturePoints: true,
+        onARKitViewCreated: onARKitViewCreated,
+        planeDetection: ARPlaneDetection.horizontalAndVertical,
+        environmentTexturing:
+            ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
+      )));
+>>>>>>> 8f0e1a8ee4b71878e1e5172aee4447fb87adad98
 
   void onARKitViewCreated(ARKitController arkitController) {
     this.arkitController = arkitController;
@@ -181,8 +194,13 @@ class _ArTesting extends State<ArTesting> {
       double dx = details.focalPoint.dx - initialFocalPoint!.dx;
       double dy = details.focalPoint.dy - initialFocalPoint!.dy;
 
+<<<<<<< HEAD
       // Debounce scale updates (adjust the multiplier as needed)
       planeNode!.position = initialPlanePosition! + vector.Vector3(dx * 0.01, 0, dy * 0.01);
+=======
+      planeNode!.position =
+          initialPlanePosition! + vector.Vector3(dx * 0.01, 0, dy * 0.01);
+>>>>>>> 8f0e1a8ee4b71878e1e5172aee4447fb87adad98
     }
   }
 }
