@@ -32,20 +32,6 @@ class _ArTesting extends State<ArTesting> {
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
-<<<<<<< HEAD
-    child: GestureDetector(
-      // onScaleStart: _onScaleStart,
-      // onScaleUpdate: _onScaleUpdate,
-      child: ARKitSceneView(
-        showFeaturePoints: false,
-        enableTapRecognizer: true,
-        onARKitViewCreated: onARKitViewCreated,
-        planeDetection: ARPlaneDetection.vertical,
-        environmentTexturing: ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
-      ),
-    ),
-  );
-=======
           child: GestureDetector(
               // onScaleStart: _onScaleStart,
               // onScaleUpdate: _onScaleUpdate,
@@ -56,7 +42,6 @@ class _ArTesting extends State<ArTesting> {
         environmentTexturing:
             ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
       )));
->>>>>>> 8f0e1a8ee4b71878e1e5172aee4447fb87adad98
 
   void onARKitViewCreated(ARKitController arkitController) {
     this.arkitController = arkitController;
@@ -194,13 +179,8 @@ class _ArTesting extends State<ArTesting> {
       double dx = details.focalPoint.dx - initialFocalPoint!.dx;
       double dy = details.focalPoint.dy - initialFocalPoint!.dy;
 
-<<<<<<< HEAD
-      // Debounce scale updates (adjust the multiplier as needed)
-      planeNode!.position = initialPlanePosition! + vector.Vector3(dx * 0.01, 0, dy * 0.01);
-=======
       planeNode!.position =
           initialPlanePosition! + vector.Vector3(dx * 0.01, 0, dy * 0.01);
->>>>>>> 8f0e1a8ee4b71878e1e5172aee4447fb87adad98
     }
   }
 }

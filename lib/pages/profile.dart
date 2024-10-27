@@ -21,7 +21,6 @@ class _ProfilePage extends State<ProfilePage> {
     return CupertinoPageScaffold(
       child: SafeArea(
         child: Column(
-          margin: EdgeInsets.all(0),
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             //Logo
@@ -40,7 +39,6 @@ class _ProfilePage extends State<ProfilePage> {
                 color: Color.fromARGB(0, 203, 114, 114)
               ),
               child: Column(
-                margin: EdgeInsets.all(0),
                 children: [
                   //Profile Pic and Stats
                 Container(
@@ -72,7 +70,6 @@ class _ProfilePage extends State<ProfilePage> {
                             color: Colors.black,
                           ),
                           child: Column(
-                            margin: EdgeInsets.all(0),
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -82,7 +79,6 @@ class _ProfilePage extends State<ProfilePage> {
                                 width: 250,
                                 height: 50,
                                 child: Column(
-                                  margin: EdgeInsets.all(0),
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -116,7 +112,6 @@ class _ProfilePage extends State<ProfilePage> {
                                       width: 75,
                                       height: 75,
                                       child: Column(
-                                        margin: EdgeInsets.all(0),
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text("#", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -129,7 +124,6 @@ class _ProfilePage extends State<ProfilePage> {
                                       width: 75,
                                       height: 75,
                                       child: Column(
-                                        margin: EdgeInsets.all(0),
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text("#", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
@@ -142,7 +136,6 @@ class _ProfilePage extends State<ProfilePage> {
                                       width: 75,
                                       height: 75,
                                       child: Column(
-                                        margin: EdgeInsets.all(0),
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text("#", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
