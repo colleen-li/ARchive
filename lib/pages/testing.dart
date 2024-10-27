@@ -26,7 +26,8 @@ class _Test extends State<Test> {
             enableTapRecognizer: true,
             onARKitViewCreated: onARKitViewCreated,
             planeDetection: ARPlaneDetection.horizontal,
-            environmentTexturing: ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
+            environmentTexturing:
+                ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
           ),
           Positioned(
             bottom: 20,

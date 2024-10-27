@@ -66,89 +66,76 @@ class _StartPage extends State<StartPage> {
     final viewHeight = MediaQuery.of(context).size.height;
 
     return CupertinoPageScaffold(
-      child: SafeArea(
-        child: Stack(
-          alignment: Alignment.center,
-          fit: StackFit.loose,
-          children: <Widget>[
-            Container(
-              alignment: Alignment.center,
-              child: Image.asset(
-                "assets/images/background.jpg",
-                height: viewHeight - 20,
-                width: viewWidth - 20,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.center,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        //Welcome MSG
+        children: [
+          Container(
+            margin: EdgeInsets.all(8),
+            alignment: Alignment.center,
+            height: viewHeight,
+            width: viewWidth - 20,
+            decoration: BoxDecoration(
+              image: DecorationImage(
+                image: AssetImage("assets/images/background.jpg"),
                 fit: BoxFit.cover,
-              ),
+                ),
             ),
-            Positioned(
-              top: (1 / 10) * viewHeight,
-              left: (1 / 8) * viewWidth,
-              child: Container(
+            child: Column(
+              mainAxisSize: MainAxisSize.max,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Container(
+                  child: Image.asset("assets/images/archive.png"),
+                  height: 120, 
+                  width: 330,
+                ),
+                Container(
                   alignment: Alignment.center,
-                  child: Image.asset(
-                    "assets/images/archive.png",
-                    height: 150,
-                    width: 330,
-                  )),
-            ),
-            Positioned(
-              top: (2.5 / 10) * viewHeight,
-              left: (1 / 5) * viewWidth,
-              child: Container(
-                alignment: Alignment.center,
-                child: const Text('Welcome Back.',
-                    style:
-                        TextStyle(fontStyle: FontStyle.italic, fontSize: 35)),
-              ),
-            ),
-            Positioned(
-              top: (3.2 / 10) * viewHeight,
-              left: (1.1 / 4) * viewWidth,
-              child: Container(
-                alignment: Alignment.center,
-                child: const Text('Log in with your account.'),
-              ),
-            ),
-            Positioned(
-              bottom: 125,
-              child: Container(
-                alignment: Alignment.center,
-                width: 350.0,
-                padding: const EdgeInsets.all(35),
-                margin: const EdgeInsets.all(20),
-                decoration: BoxDecoration(
-                  border: Border.all(
-                      width: 1.0, color: const Color.fromARGB(255, 23, 23, 23)),
-                  borderRadius: BorderRadius.circular(8),
-                  boxShadow: [
-                    new BoxShadow(color: const Color(0xff000000)),
-                  ],
+                  child: Text("Welcome Back!", style: TextStyle(fontSize: 35, letterSpacing: 3)),
+                  height: 50, 
+                  width: 330,
                 ),
-                child: Column(
-                  children: [
-                    Row(
-                      children: [
-                        Expanded(
-                          child: BrandButton(
-                              image: const AssetImage("assets/icons/apple.png"),
-                              onTap: loginWithApple),
-                        ),
-                        const SizedBox(width: 10),
-                        Expanded(
-                          child: BrandButton(
-                              image:
-                                  const AssetImage("assets/icons/google.png"),
-                              onTap: loginWithGoogle),
-                        ),
-                      ],
-                    ),
-                  ],
+                Container(
+                  alignment: Alignment.center,
+                  child: Text("Log in with your account", style: TextStyle(fontSize: 18, letterSpacing: 1)),
+                  height: 50, 
+                  width: 330,
                 ),
-              ),
-            ),
-          ],
-        ),
-      ),
+                Container(
+                  height: 200,
+                ),
+                Container(
+                  child: Column(
+                    mainAxisSize: MainAxisSize.max,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Row(
+                        children: [
+                          Expanded(
+                            child: BrandButton(
+                                image: const AssetImage("assets/icons/apple.png"),
+                                onTap: loginWithApple),
+                          ),
+                          const SizedBox(width: 10),
+                          Expanded(
+                            child: BrandButton(
+                                image:
+                                    const AssetImage("assets/icons/google.png"),
+                                onTap: loginWithGoogle),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
+                )
+            ],)
+          ),
+        ],
+      )
     );
   }
 }

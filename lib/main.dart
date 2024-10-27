@@ -1,4 +1,5 @@
 import 'package:archive/firebase_options.dart';
+import 'package:archive/pages/home.dart';
 import 'package:archive/pages/main_tab_navigator.dart';
 import 'package:archive/pages/start.dart';
 import 'package:archive/pages/arTesting.dart';
@@ -35,7 +36,7 @@ class ARchive extends StatelessWidget {
       theme: const CupertinoThemeData(
         brightness: Brightness.dark,
       ),
-      home: user != null ? const MainTabNavigator() : const StartPage(),
+      home: user != null ? const MainTabNavigator() : const MainTabNavigator(),
     ));
   }
 }
