@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:archive/widgets/brand_button.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -39,7 +40,7 @@ class _ProfilePage extends State<ProfilePage> {
             Positioned(
               top: (1 / 6) * viewHeight,
               left: (1 / 16) * viewWidth,
-              height: 150,
+              height: 200,
               width: viewWidth - 50,
               child: Container(
                 decoration: BoxDecoration(
@@ -62,9 +63,74 @@ class _ProfilePage extends State<ProfilePage> {
             ),
             Positioned(
               top: (1 / 5) * viewHeight,
-              left: (1 / 2) * viewWidth,
-              child: Text("USERNAME"),
+              left: ((1 / 2) * viewWidth) - 45,
+              child: Text("USERNAME",
+                  style: (TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ))),
             ),
+            Positioned(
+              top: ((1 / 5) * viewHeight) + 25,
+              left: ((1 / 2) * viewWidth) - 45,
+              child: Text("Add Pronouns • Purdue'28 | @purduecs",
+                  style: (TextStyle(
+                      fontSize: 12, color: Colors.white.withOpacity(0.5)))),
+            ),
+            //Quotes
+            Positioned(
+              top: ((1 / 5) * viewHeight) + 50,
+              left: ((1 / 2) * viewWidth) - 25,
+              child: Text("#",
+                  style: (TextStyle(fontSize: 16, color: Colors.white))),
+            ),
+            Positioned(
+              top: ((1 / 5) * viewHeight) + 80,
+              left: ((1 / 2) * viewWidth) - 45,
+              child: Text("Quotes",
+                  style: (TextStyle(
+                      fontSize: 14, color: Colors.white.withOpacity(0.5)))),
+            ),
+            //Followers
+            Positioned(
+              top: ((1 / 5) * viewHeight) + 50,
+              left: ((1 / 2) * viewWidth) + 45,
+              child: Text("#",
+                  style: (TextStyle(fontSize: 16, color: Colors.white))),
+            ),
+            Positioned(
+              top: ((1 / 5) * viewHeight) + 80,
+              left: ((1 / 2) * viewWidth) + 20,
+              child: Text("Followers",
+                  style: (TextStyle(
+                      fontSize: 14, color: Colors.white.withOpacity(0.5)))),
+            ),
+            //Following
+            Positioned(
+              top: ((1 / 5) * viewHeight) + 50,
+              left: ((1 / 2) * viewWidth) + 120,
+              child: Text("#",
+                  style: (TextStyle(fontSize: 16, color: Colors.white))),
+            ),
+            Positioned(
+              top: ((1 / 5) * viewHeight) + 80,
+              left: ((1 / 2) * viewWidth) + 95,
+              child: Text("Following",
+                  style: (TextStyle(
+                      fontSize: 14, color: Colors.white.withOpacity(0.5)))),
+            ),
+            // Positioned(
+            //   child: Column(
+            //       children: [
+            //             Expanded(
+            //               child: BrandButton(
+            //                   onTap:() {
+
+            //                   },
+            //               ),
+            //             ),
+            //           ],
+            //         ),
+            // ),
           ],
         ),
       ),
