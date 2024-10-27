@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 import 'package:flutter/cupertino.dart';
 import 'dart:math' as math;
-// import 'dart:ui' as ui;
-// import 'dart:typed_data';
+import 'dart:ui' as ui;
+import 'dart:typed_data';
+import 'dart:convert';
 
 
 class ARWidget extends StatefulWidget {
@@ -73,12 +74,14 @@ class _ARWidgetState extends State<ARWidget> {
     if (nodesList.isNotEmpty) {
       final tappedNode = nodesList.first;
 
-      _addPlaneAtPosition(tappedNode.worldTransform);
+      final quote = "Hello World!";
+
+      _addPlaneAtPosition(tappedNode.worldTransform, quote);
 
     }
   }
 
-  void _addPlaneAtPosition(Matrix4 transform) {
+  void _addPlaneAtPosition(Matrix4 transform, String quote) async {
     final position = vector.Vector3(
       transform.getTranslation().x,
       transform.getTranslation().y,
@@ -88,8 +91,11 @@ class _ARWidgetState extends State<ARWidget> {
     final normal = vector.Vector3(0, 1, 0);
     position.add(normal.normalized() * 0.1);
 
+    String canvasImage = await getCanvasImageBase64(quote);
+
     ARKitMaterial imageMaterial = ARKitMaterial(
-      diffuse: ARKitMaterialProperty.image('assets/images/background.jpg'),
+      // diffuse: ARKitMaterialProperty.image('assets/images/background.jpg'),
+      diffuse: ARKitMaterialProperty.image('data:image/png;base64,$canvasImage'),
       transparency: 1.0,
     );
 
@@ -133,25 +139,30 @@ class _ARWidgetState extends State<ARWidget> {
     }
   }
 
-  // void getCanvasImage(String str) async {
-  //   var builder = ui.ParagraphBuilder(ui.ParagraphStyle(fontStyle: FontStyle.normal));
-  //   builder.addText(str);
-  //   ui.Paragraph paragraph = builder.build();
-  //   paragraph.layout(const ui.ParagraphConstraints(width: 100));
+  Future<String> getCanvasImageBase64(String str) async {
+    var builder = ui.ParagraphBuilder(ui.ParagraphStyle(fontStyle: FontStyle.normal));
+    builder.addText(str);
+    ui.Paragraph paragraph = builder.build();
 
-  //   final recorder = ui.PictureRecorder();
-  //   var newCanvas = Canvas(recorder);
+    const double imageWidth = 100;
+    const double imageHeight = 100;
+    paragraph.layout(const ui.ParagraphConstraints(width: imageWidth));
 
-  //   newCanvas.drawParagraph(paragraph, Offset.zero);
+    final recorder = ui.PictureRecorder();
+    var newCanvas = Canvas(recorder);
 
-  //   final picture = recorder.endRecording();
-  //   var res = await picture.toImage(100, 100);
-  //   ByteData? data = await res.toByteData(format: ui.ImageByteFormat.png);
+    newCanvas.drawParagraph(paragraph, Offset(0,0));
 
-  //   if (data != null) {
-  //     img = Image.memory(Uint8List.view(data.buffer));
-  //   }
+    final picture = recorder.endRecording();
+    var res = await picture.toImage(imageWidth.toInt(), imageHeight.toInt());
+    ByteData? data = await res.toByteData(format: ui.ImageByteFormat.png);
 
-  //   setState(() {});
-  // }
+    if (data != null) {
+        final buffer = data.buffer.asUint8List();        
+        String base64String = base64Encode(buffer);
+        return base64String;
+    } else {
+        throw Exception("Failed to convert image to byte data");
+    }
+  }
 }
