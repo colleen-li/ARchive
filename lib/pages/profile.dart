@@ -13,6 +13,7 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePage extends State<ProfilePage> {
+  bool _liked = false;
   @override
   Widget build(BuildContext context) {
     final viewWidth = MediaQuery.of(context).size.width;
@@ -33,19 +34,19 @@ class _ProfilePage extends State<ProfilePage> {
                 fit: BoxFit.contain,)),
             //Profile
             Container(
-              width: 400, 
-              height: 300,
+              width: 380, 
+              height: 190,
               decoration: BoxDecoration(
-                color: Color.fromARGB(0, 203, 114, 114)
+                color: Color(0xff202020),
+                borderRadius: BorderRadius.circular(8),
               ),
               child: Column(
                 children: [
                   //Profile Pic and Stats
                 Container(
                     width: 380,
-                    height: 180,
+                    height: 145,
                     decoration: BoxDecoration(
-                      color: Color(0xffFFFFFF),
                       borderRadius: BorderRadius.circular(8),
                     ),
                     //Split pfp and stats
@@ -54,52 +55,49 @@ class _ProfilePage extends State<ProfilePage> {
                       children: [
                         //pfp
                         Container(
-                          margin: const EdgeInsets.all(10),
+                          margin: const EdgeInsets.only(left: 0.5, right: 0.5, top: 0.0, bottom: 0.0),
                           width: 75,
                           height: 75,
                           decoration: BoxDecoration(
-                            color: Color.fromARGB(255, 172, 56, 56),
-                            borderRadius: BorderRadius.circular(8),
+                            borderRadius: BorderRadius.circular(10),
+                            image: DecorationImage(image : AssetImage("assets/images/pfp.png")),
                           )
                         ),
                         //stats
                         Container(
                           width: 270,
                           height: 180,
-                          decoration: BoxDecoration(
-                            color: Colors.black,
-                          ),
                           child: Column(
                             crossAxisAlignment: CrossAxisAlignment.center,
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               //Profile
                               Container(
-                                margin: const EdgeInsets.all(5),
+                                margin: const EdgeInsets.only(left: 3, right: 3, top: 3),
                                 width: 250,
-                                height: 50,
+                                height: 40,
                                 child: Column(
-                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
                                       "USERNAME",
-                                      style: (TextStyle(fontWeight: FontWeight.bold,)),
+                                      style: (TextStyle(fontWeight: FontWeight.bold, letterSpacing: 0.5)),
                                     ),
                                     Text(
                                       "Add Pronouns • Purdue'28 | @purduecs",
-                                      style: (TextStyle(fontSize:12,color: Colors.white.withOpacity(0.5)))
+                                      style: (TextStyle(fontSize:14,color: Colors.white.withOpacity(0.5)))
                                     )
                                   ],
                                 )
                               ),
                               //Followings
                               Container(
-                                margin: const EdgeInsets.all(8),
+                                margin: const EdgeInsets.only(left:3, right: 3, bottom: 3),
                                 width: 250,
                                 height: 75,
                                 decoration: BoxDecoration(
-                                  color: Color.fromARGB(255, 172, 56, 56),
+                                  color: Color(0xff202020),
                                   borderRadius: BorderRadius.circular(8),
                                 ),
                                 child: Row(
@@ -127,7 +125,7 @@ class _ProfilePage extends State<ProfilePage> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text("#", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                                          Text("Quotes", style: TextStyle(fontSize: 12)),
+                                          Text("Followers", style: TextStyle(fontSize: 12)),
                                         ],)
                                     ),
                                     //followings
@@ -139,7 +137,7 @@ class _ProfilePage extends State<ProfilePage> {
                                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                                         children: [
                                           Text("#", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
-                                          Text("Follow", style: TextStyle(fontSize: 12)),
+                                          Text("Following", style: TextStyle(fontSize: 12)),
                                         ],)
                                     ),
                                   ],
@@ -152,15 +150,29 @@ class _ProfilePage extends State<ProfilePage> {
                     )  
                 ),
                 Container(
-                  width: 380,
-                  height: 50,
+                  width: 350,
+                  height: 35,
                   decoration: BoxDecoration(
-                    color: Color.fromARGB(146, 48, 119, 218),
+                    color: Color(0xff785964),
                     borderRadius: BorderRadius.circular(8),
                   ),
-                )  
+                  child: Text("Follow", style: TextStyle(fontSize: 24, letterSpacing: 1.5), textAlign: TextAlign.center),
+                ), 
                 ],)
             ),
+            Container(
+              padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
+              child: PostToolbar(
+                liked: _liked,
+                likes: 142 + (_liked ? 1 : 0),
+                onLike: () {
+                  setState(() {
+                    _liked = !_liked;
+                  });
+                },
+                date: "10/24/24",
+              ),
+            )
           ]
         )
       ),
