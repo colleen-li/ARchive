@@ -1,6 +1,6 @@
 # ARchive
 
-A new Flutter project.
+Transforming Empty Spaces into an Interconnected World
 
 ## Inspiration
 
@@ -22,9 +22,11 @@ One of the biggest challenges we ran into was understanding the position and rot
 
 ## Accomplishments that we're proud of
 
-Building a project that has the ability to empower others
-Learning about ARKit
-Having fun
+- Item Zed
+    Building a project that has the ability to empower others
+    Learning about ARKit
+    Having fun
+* Item Alt
 
 ## What we learned
 
