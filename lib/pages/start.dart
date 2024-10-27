@@ -66,12 +66,12 @@ class _StartPage extends State<StartPage> {
     final viewHeight = MediaQuery.of(context).size.height;
 
     return CupertinoPageScaffold(
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        //Welcome MSG
-        children: [
-          Container(
+        child: Row(
+      mainAxisAlignment: MainAxisAlignment.center,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      //Welcome MSG
+      children: [
+        Container(
             margin: EdgeInsets.all(8),
             alignment: Alignment.center,
             height: viewHeight,
@@ -80,34 +80,37 @@ class _StartPage extends State<StartPage> {
               image: DecorationImage(
                 image: AssetImage("assets/images/background.jpg"),
                 fit: BoxFit.cover,
-                ),
+              ),
             ),
-            child: Column(
+            child: Center(
+                child: Column(
               mainAxisSize: MainAxisSize.max,
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Container(
-                  child: Image.asset("assets/images/archive.png"),
-                  height: 120, 
+                  child: Image.asset("assets/images/banner.png"),
+                  width: MediaQuery.of(context).size.width - 50,
+                ),
+                Container(
+                  alignment: Alignment.center,
+                  child: Text("Welcome Back!",
+                      style: TextStyle(fontSize: 35, letterSpacing: 3)),
+                  height: 50,
                   width: 330,
                 ),
                 Container(
                   alignment: Alignment.center,
-                  child: Text("Welcome Back!", style: TextStyle(fontSize: 35, letterSpacing: 3)),
-                  height: 50, 
-                  width: 330,
-                ),
-                Container(
-                  alignment: Alignment.center,
-                  child: Text("Log in with your account", style: TextStyle(fontSize: 18, letterSpacing: 1)),
-                  height: 50, 
+                  child: Text("Log in with your account",
+                      style: TextStyle(fontSize: 18, letterSpacing: 1)),
+                  height: 50,
                   width: 330,
                 ),
                 Container(
                   height: 200,
                 ),
                 Container(
+                  padding: EdgeInsets.fromLTRB(25, 0, 25, 0),
                   child: Column(
                     mainAxisSize: MainAxisSize.max,
                     crossAxisAlignment: CrossAxisAlignment.center,
@@ -115,14 +118,15 @@ class _StartPage extends State<StartPage> {
                     children: [
                       Row(
                         children: [
+                          // Expanded(
+                          //   child: BrandButton(
+                          //       image: const AssetImage("assets/icons/apple.png"),
+                          //       onTap: loginWithApple),
+                          // ),
+                          // const SizedBox(width: 10),
                           Expanded(
                             child: BrandButton(
-                                image: const AssetImage("assets/icons/apple.png"),
-                                onTap: loginWithApple),
-                          ),
-                          const SizedBox(width: 10),
-                          Expanded(
-                            child: BrandButton(
+                                label: " Sign in with Google",
                                 image:
                                     const AssetImage("assets/icons/google.png"),
                                 onTap: loginWithGoogle),
@@ -132,10 +136,9 @@ class _StartPage extends State<StartPage> {
                     ],
                   ),
                 )
-            ],)
-          ),
-        ],
-      )
-    );
+              ],
+            ))),
+      ],
+    ));
   }
 }

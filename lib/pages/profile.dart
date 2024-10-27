@@ -1,3 +1,5 @@
+import 'package:archive/api/models/post.dart';
+import 'package:archive/api/services/post.dart';
 import 'package:archive/pages/start.dart';
 import 'package:archive/widgets/quote.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -17,17 +19,24 @@ class ProfilePage extends StatefulWidget {
 }
 
 class _ProfilePage extends State<ProfilePage> {
-  bool _liked = false;
+  PostService postService = PostService();
+  List<IPost> _quotes = [];
+
+  @override
+  void initState() {
+    super.initState();
+    postService.getPosts().then(
+      (value) {
+        debugPrint("Got posts: ${value.docs.length}");
+        setState(() {
+          _quotes = value.docs.map((e) => e.data()).toList();
+        });
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final viewWidth = MediaQuery.of(context).size.width;
-    final viewHeight = MediaQuery.of(context).size.height;
-
-    final List<String> quotes = <String>[
-      "Hello from ARchive!",
-      "Programming can be tough, but persistence is key. Stick with it, and you'll master Java. Programming challenges your creativity and sharpens your mind. Every line of Java code contributes to your growth. The only way to learn a new programming language is by writing programs in it."
-    ];
-
     return CupertinoPageScaffold(
         child: SafeArea(
             child: Column(
@@ -158,7 +167,9 @@ class _ProfilePage extends State<ProfilePage> {
                                                       MainAxisAlignment
                                                           .spaceEvenly,
                                                   children: [
-                                                    Text("0",
+                                                    Text(
+                                                        _quotes.length
+                                                            .toString(),
                                                         style: TextStyle(
                                                             fontSize: 18,
                                                             fontWeight:
@@ -270,11 +281,11 @@ class _ProfilePage extends State<ProfilePage> {
           Expanded(
             child: ListView.builder(
                 padding: const EdgeInsets.all(8),
-                itemCount: quotes.length,
+                itemCount: _quotes.length,
                 itemBuilder: (BuildContext context, int index) {
                   return Padding(
                     padding: const EdgeInsets.fromLTRB(0, 5, 0, 5),
-                    child: Quote(quote: quotes[index]),
+                    child: Quote(quote: _quotes[index]),
                   );
                 }),
           )

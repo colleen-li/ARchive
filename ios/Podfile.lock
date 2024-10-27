@@ -69,6 +69,8 @@ PODS:
     - nanopb (~> 3.30910.0)
   - FirebaseSharedSwift (11.2.0)
   - Flutter (1.0.0)
+  - geolocator_apple (1.2.0):
+    - Flutter
   - GLTFSceneKit (0.3.0)
   - google_sign_in_ios (0.0.1):
     - AppAuth (>= 1.7.4)
@@ -124,6 +126,7 @@ DEPENDENCIES:
   - firebase_core (from `.symlinks/plugins/firebase_core/ios`)
   - FirebaseFirestore (from `https://github.com/invertase/firestore-ios-sdk-frameworks.git`, tag `11.2.0`)
   - Flutter (from `Flutter`)
+  - geolocator_apple (from `.symlinks/plugins/geolocator_apple/ios`)
   - google_sign_in_ios (from `.symlinks/plugins/google_sign_in_ios/darwin`)
 
 SPEC REPOS:
@@ -166,6 +169,8 @@ EXTERNAL SOURCES:
     :tag: 11.2.0
   Flutter:
     :path: Flutter
+  geolocator_apple:
+    :path: ".symlinks/plugins/geolocator_apple/ios"
   google_sign_in_ios:
     :path: ".symlinks/plugins/google_sign_in_ios/darwin"
 
@@ -196,6 +201,7 @@ SPEC CHECKSUMS:
   FirebaseFirestoreInternalBinary: 4cf8180574159f20a2861a6e5c7e86745e4626d8
   FirebaseSharedSwift: 7a0d78d155ede78407f0fdc89fbc914014c7c540
   Flutter: e0871f40cf51350855a761d2e70bf5af5b9b5de7
+  geolocator_apple: 6cbaf322953988e009e5ecb481f07efece75c450
   GLTFSceneKit: d1b437c514ba2aed5555afb0fddd64e030612d57
   google_sign_in_ios: 07375bfbf2620bc93a602c0e27160d6afc6ead38
   GoogleSignIn: d4281ab6cf21542b1cfaff85c191f230b399d2db

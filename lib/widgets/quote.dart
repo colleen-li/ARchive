@@ -1,9 +1,10 @@
+import 'package:archive/api/models/post.dart';
 import 'package:archive/widgets/post_toolbar.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class Quote extends StatefulWidget {
-  final String quote;
+  final IPost quote;
 
   const Quote({
     required this.quote,
@@ -36,7 +37,7 @@ class _Quote extends State<Quote> {
                 borderRadius: BorderRadius.circular(5),
               ),
               child: Text(
-                '"${widget.quote}"',
+                '"${widget.quote.quote}"',
                 style: TextStyle(
                   color: Colors.white.withOpacity(0.5),
                   fontSize: 16,
@@ -45,8 +46,9 @@ class _Quote extends State<Quote> {
             ),
           ),
           PostToolbar(
-            date: "10/10/2021",
-            likes: 10 + (_liked ? 1 : 0),
+            date:
+                "${widget.quote.imprinted.month}/${widget.quote.imprinted.day}/${widget.quote.imprinted.year}",
+            likes: widget.quote.likes + (_liked ? 1 : 0),
             liked: _liked,
             onLike: () {
               setState(() {

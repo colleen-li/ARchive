@@ -1,7 +1,12 @@
+import 'package:archive/api/models/post.dart';
+import 'package:archive/api/services/post.dart';
+import 'package:archive/common/geo.dart';
 import 'package:archive/widgets/brand_button.dart';
 import 'package:archive/widgets/enter_quote.dart';
 import 'package:arkit_plugin/arkit_plugin.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:geolocator/geolocator.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
@@ -19,7 +24,10 @@ class ARWidget extends StatefulWidget {
 }
 
 class _ARWidgetState extends State<ARWidget> {
+  PostService postService = PostService();
+
   late ARKitController arkitController;
+
   ARKitPlane? plane;
   ARKitNode? planeNode;
   String? anchorId;
@@ -31,7 +39,44 @@ class _ARWidgetState extends State<ARWidget> {
   bool planePlaced = false;
   DateTime? lastUpdateTime;
 
+  vector.Vector3 _position = vector.Vector3(0, 0, 0);
+  vector.Vector4 _rotation = vector.Vector4(0, 0, 0, 0);
   bool _isEditing = false;
+  bool _isSavingPost = false;
+  String _quote = "";
+
+  @override
+  void initState() {
+    super.initState();
+
+    determinePosition().then((geoPos) {
+      debugPrint("Current Position: ${geoPos.latitude}, ${geoPos.longitude}");
+      postService.getPostsNearby(geoPos).then((QuerySnapshot<IPost> snapshot) {
+        debugPrint("Posts found: ${snapshot.docs.length}");
+        snapshot.docs.forEach((doc) {
+          final data = doc.data();
+          final quote = data.quote;
+          final position = data.position;
+          final rotation = data.rotation;
+
+          final positionVector = vector.Vector3(
+            position.x,
+            position.y,
+            position.z,
+          );
+
+          final rotationVector = vector.Vector4(
+            rotation.x,
+            rotation.y,
+            rotation.z,
+            rotation.w,
+          );
+
+          _addPlaneAtPosition(positionVector, rotationVector, quote);
+        });
+      });
+    });
+  }
 
   @override
   void dispose() {
@@ -88,10 +133,25 @@ class _ARWidgetState extends State<ARWidget> {
                         Expanded(
                           child: BrandButton(
                             label: "ARchive",
+                            loading: _isSavingPost,
+                            disabled: _quote.isEmpty,
                             icon: HeroIcon(HeroIcons.arrowRightStartOnRectangle,
                                 color: Colors.white.withOpacity(0.5)),
-                            onTap: () {
+                            onTap: () async {
                               setState(() {
+                                _isSavingPost = true;
+                              });
+
+                              await determinePosition().then((geoPos) async {
+                                debugPrint(
+                                    "Position: ${geoPos.latitude}, ${geoPos.longitude}");
+                                await postService.addPost(
+                                    _quote, _position, _rotation, geoPos);
+                              });
+
+                              setState(() {
+                                _isSavingPost = false;
+                                _quote = "";
                                 _isEditing = !_isEditing;
                               });
                             },
@@ -143,20 +203,32 @@ class _ARWidgetState extends State<ARWidget> {
             child: EnterQuote(
               onSubmit: (quote) {
                 Navigator.of(context).pop();
-                _addPlaneAtPosition(tappedNode.worldTransform, quote);
+
+                final transform = tappedNode.worldTransform;
+
+                final position = vector.Vector3(
+                  transform.getTranslation().x,
+                  transform.getTranslation().y,
+                  transform.getTranslation().z,
+                );
+
+                final rotation = vector.Vector4(0, 1, 0, math.pi / 2);
+
+                setState(() {
+                  _position = position;
+                  _rotation = rotation;
+                  _quote = quote;
+                });
+
+                _addPlaneAtPosition(position, rotation, quote);
               },
             )),
       );
     }
   }
 
-  void _addPlaneAtPosition(Matrix4 transform, String quote) async {
-    final position = vector.Vector3(
-      transform.getTranslation().x,
-      transform.getTranslation().y,
-      transform.getTranslation().z,
-    );
-
+  void _addPlaneAtPosition(
+      vector.Vector3 position, vector.Vector4 rotation, String quote) async {
     final normal = vector.Vector3(0, 1, 0);
     position.add(normal.normalized() * 0.1);
 
@@ -174,8 +246,6 @@ class _ARWidgetState extends State<ARWidget> {
       height: 1.0,
       materials: [imageMaterial],
     );
-
-    final rotation = vector.Vector4(0, 1, 0, math.pi/2);
 
     planeNode = ARKitNode(
       geometry: plane,
