@@ -20,121 +20,151 @@ class _ProfilePage extends State<ProfilePage> {
 
     return CupertinoPageScaffold(
       child: SafeArea(
-        child: Stack(
-          alignment: Alignment.center,
-          fit: StackFit.loose,
-          children: <Widget>[
-            //logo
-            Positioned(
-              top: (1 / (15)) * viewHeight,
-              child: Container(
-                alignment: Alignment.center,
-                child: SvgPicture.asset(
-                  "assets/svg/logo.svg",
-                  height: 75,
-                  width: 75,
-                  fit: BoxFit.contain,
-                ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            //Logo
+              Container(
+              alignment: Alignment.center,
+              child: SvgPicture.asset(
+                "assets/svg/logo.svg",
+                height: 75,
+                width: 75,
+                fit: BoxFit.contain,)),
+            //Profile
+            Container(
+              width: 400, 
+              height: 300,
+              decoration: BoxDecoration(
+                color: Color.fromARGB(0, 203, 114, 114)
               ),
-            ),
-            //profile
-            Positioned(
-              top: (1 / 6) * viewHeight,
-              left: (1 / 16) * viewWidth,
-              height: 200,
-              width: viewWidth - 50,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: const Color(0xff202020),
+              child: Column(
+                children: [
+                  //Profile Pic and Stats
+                Container(
+                    width: 380,
+                    height: 180,
+                    decoration: BoxDecoration(
+                      color: Color(0xffFFFFFF),
+                      borderRadius: BorderRadius.circular(8),
+                    ),
+                    //Split pfp and stats
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: [
+                        //pfp
+                        Container(
+                          margin: const EdgeInsets.all(10),
+                          width: 75,
+                          height: 75,
+                          decoration: BoxDecoration(
+                            color: Color.fromARGB(255, 172, 56, 56),
+                            borderRadius: BorderRadius.circular(8),
+                          )
+                        ),
+                        //stats
+                        Container(
+                          width: 270,
+                          height: 180,
+                          decoration: BoxDecoration(
+                            color: Colors.black,
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.center,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: [
+                              //Profile
+                              Container(
+                                margin: const EdgeInsets.all(5),
+                                width: 250,
+                                height: 50,
+                                child: Column(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text(
+                                      "USERNAME",
+                                      style: (TextStyle(fontWeight: FontWeight.bold,)),
+                                    ),
+                                    Text(
+                                      "Add Pronouns • Purdue'28 | @purduecs",
+                                      style: (TextStyle(fontSize:12,color: Colors.white.withOpacity(0.5)))
+                                    )
+                                  ],
+                                )
+                              ),
+                              //Followings
+                              Container(
+                                margin: const EdgeInsets.all(8),
+                                width: 250,
+                                height: 75,
+                                decoration: BoxDecoration(
+                                  color: Color.fromARGB(255, 172, 56, 56),
+                                  borderRadius: BorderRadius.circular(8),
+                                ),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  //posts, followers, followings
+                                  children: [
+                                    //posts
+                                    Container(
+                                      margin: const EdgeInsets.all(3),
+                                      width: 75,
+                                      height: 75,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text("#", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                                          Text("Quotes", style: TextStyle(fontSize: 12)),
+                                        ],)
+                                    ),
+                                    //followers
+                                    Container(
+                                      margin: const EdgeInsets.all(3),
+                                      width: 75,
+                                      height: 75,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text("#", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                                          Text("Quotes", style: TextStyle(fontSize: 12)),
+                                        ],)
+                                    ),
+                                    //followings
+                                    Container(
+                                      margin: const EdgeInsets.all(3),
+                                      width: 75,
+                                      height: 75,
+                                      child: Column(
+                                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                                        children: [
+                                          Text("#", style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold)),
+                                          Text("Follow", style: TextStyle(fontSize: 12)),
+                                        ],)
+                                    ),
+                                  ],
+                                  )
+                              )
+                            ],
+                          )
+                        )
+                      ]
+                    )  
                 ),
-              ),
+                Container(
+                  width: 380,
+                  height: 50,
+                  decoration: BoxDecoration(
+                    color: Color.fromARGB(146, 48, 119, 218),
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                )  
+                ],)
             ),
-            Positioned(
-              top: (1 / (4.8)) * viewHeight,
-              left: (1 / 7) * viewWidth,
-              height: 80,
-              width: 80,
-              child: Container(
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(15),
-                  color: const Color(0xffFFFFFF),
-                ),
-              ),
-            ),
-            Positioned(
-              top: (1 / 5) * viewHeight,
-              left: ((1 / 2) * viewWidth) - 45,
-              child: Text("USERNAME",
-                  style: (TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ))),
-            ),
-            Positioned(
-              top: ((1 / 5) * viewHeight) + 25,
-              left: ((1 / 2) * viewWidth) - 45,
-              child: Text("Add Pronouns • Purdue'28 | @purduecs",
-                  style: (TextStyle(
-                      fontSize: 12, color: Colors.white.withOpacity(0.5)))),
-            ),
-            //Quotes
-            Positioned(
-              top: ((1 / 5) * viewHeight) + 50,
-              left: ((1 / 2) * viewWidth) - 25,
-              child: Text("#",
-                  style: (TextStyle(fontSize: 16, color: Colors.white))),
-            ),
-            Positioned(
-              top: ((1 / 5) * viewHeight) + 80,
-              left: ((1 / 2) * viewWidth) - 45,
-              child: Text("Quotes",
-                  style: (TextStyle(
-                      fontSize: 14, color: Colors.white.withOpacity(0.5)))),
-            ),
-            //Followers
-            Positioned(
-              top: ((1 / 5) * viewHeight) + 50,
-              left: ((1 / 2) * viewWidth) + 45,
-              child: Text("#",
-                  style: (TextStyle(fontSize: 16, color: Colors.white))),
-            ),
-            Positioned(
-              top: ((1 / 5) * viewHeight) + 80,
-              left: ((1 / 2) * viewWidth) + 20,
-              child: Text("Followers",
-                  style: (TextStyle(
-                      fontSize: 14, color: Colors.white.withOpacity(0.5)))),
-            ),
-            //Following
-            Positioned(
-              top: ((1 / 5) * viewHeight) + 50,
-              left: ((1 / 2) * viewWidth) + 120,
-              child: Text("#",
-                  style: (TextStyle(fontSize: 16, color: Colors.white))),
-            ),
-            Positioned(
-              top: ((1 / 5) * viewHeight) + 80,
-              left: ((1 / 2) * viewWidth) + 95,
-              child: Text("Following",
-                  style: (TextStyle(
-                      fontSize: 14, color: Colors.white.withOpacity(0.5)))),
-            ),
-            // Positioned(
-            //   child: Column(
-            //       children: [
-            //             Expanded(
-            //               child: BrandButton(
-            //                   onTap:() {
-
-            //                   },
-            //               ),
-            //             ),
-            //           ],
-            //         ),
-            // ),
-          ],
-        ),
+          ]
+        )
       ),
     );
   }
 }
+

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 import 'package:flutter/cupertino.dart';
 import 'dart:math' as math;
+// import 'dart:ui' as ui;
+// import 'dart:typed_data';
+
 
 class ARWidget extends StatefulWidget {
   const ARWidget({Key? key}) : super(key: key);
@@ -129,4 +132,26 @@ class _ARWidgetState extends State<ARWidget> {
       planeNode!.position = currentPlanePosition! + vector.Vector3(dx * 0.01, 0, dy * 0.01);
     }
   }
+
+  // void getCanvasImage(String str) async {
+  //   var builder = ui.ParagraphBuilder(ui.ParagraphStyle(fontStyle: FontStyle.normal));
+  //   builder.addText(str);
+  //   ui.Paragraph paragraph = builder.build();
+  //   paragraph.layout(const ui.ParagraphConstraints(width: 100));
+
+  //   final recorder = ui.PictureRecorder();
+  //   var newCanvas = Canvas(recorder);
+
+  //   newCanvas.drawParagraph(paragraph, Offset.zero);
+
+  //   final picture = recorder.endRecording();
+  //   var res = await picture.toImage(100, 100);
+  //   ByteData? data = await res.toByteData(format: ui.ImageByteFormat.png);
+
+  //   if (data != null) {
+  //     img = Image.memory(Uint8List.view(data.buffer));
+  //   }
+
+  //   setState(() {});
+  // }
 }
