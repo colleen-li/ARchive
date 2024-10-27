@@ -1,5 +1,7 @@
+import 'package:archive/widgets/ar_screen.dart';
 import 'package:archive/widgets/post_toolbar.dart';
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
 class HomePage extends StatefulWidget {
@@ -40,7 +42,25 @@ class _HomePage extends State<HomePage> {
             },
             date: "10/24/24",
           ),
-        )
+        ),
+         Center(
+                child: Container(
+                  width: MediaQuery.of(context).size.width - 32, // Adjust width as needed
+                  height: 800, // Set a fixed height or use MediaQuery for responsiveness
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(15),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black26,
+                        blurRadius: 10,
+                        offset: Offset(0, 4),
+                      ),
+                    ],
+                  ),
+                  child: const ARWidget(),
+                ),
+              ),
       ],
     )));
   }
