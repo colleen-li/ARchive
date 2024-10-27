@@ -19,14 +19,14 @@ class _ProfilePage extends State<ProfilePage> {
     final viewHeight = MediaQuery.of(context).size.height;
 
     return CupertinoPageScaffold(
-      child: Center(
+      child: SafeArea(
         child: Stack(
           alignment: Alignment.center,
           fit: StackFit.loose,
           children: <Widget>[
             //logo
             Positioned(
-              top: (1/(15)) * viewHeight,
+              top: (1 / (15)) * viewHeight,
               child: Container(
                 alignment: Alignment.center,
                 child: SvgPicture.asset(
@@ -39,8 +39,8 @@ class _ProfilePage extends State<ProfilePage> {
             ),
             //profile
             Positioned(
-              top: (1/6) * viewHeight,
-              left: (1/16) * viewWidth,
+              top: (1 / 6) * viewHeight,
+              left: (1 / 16) * viewWidth,
               height: 200,
               width: viewWidth - 50,
               child: Container(
@@ -51,8 +51,8 @@ class _ProfilePage extends State<ProfilePage> {
               ),
             ),
             Positioned(
-              top: (1/(4.8)) * viewHeight,
-              left: (1/7) * viewWidth,
+              top: (1 / (4.8)) * viewHeight,
+              left: (1 / 7) * viewWidth,
               height: 80,
               width: 80,
               child: Container(
@@ -63,47 +63,61 @@ class _ProfilePage extends State<ProfilePage> {
               ),
             ),
             Positioned(
-              top: (1/5) * viewHeight,
-              left: ((1/2) * viewWidth)- 45,
-              child: Text("USERNAME", style: (TextStyle(fontWeight: FontWeight.bold, ))),
+              top: (1 / 5) * viewHeight,
+              left: ((1 / 2) * viewWidth) - 45,
+              child: Text("USERNAME",
+                  style: (TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ))),
             ),
             Positioned(
-              top: ((1/5) * viewHeight) + 25,
-              left: ((1/2) * viewWidth)- 45,
-              child: Text("Add Pronouns • Purdue'28 | @purduecs", style: (TextStyle(fontSize: 12, color: Colors.white.withOpacity(0.5)))),
+              top: ((1 / 5) * viewHeight) + 25,
+              left: ((1 / 2) * viewWidth) - 45,
+              child: Text("Add Pronouns • Purdue'28 | @purduecs",
+                  style: (TextStyle(
+                      fontSize: 12, color: Colors.white.withOpacity(0.5)))),
             ),
             //Quotes
             Positioned(
-              top: ((1/5) * viewHeight) + 50,
-              left: ((1/2) * viewWidth) - 25,
-              child: Text("#", style: (TextStyle(fontSize: 16, color: Colors.white))),
+              top: ((1 / 5) * viewHeight) + 50,
+              left: ((1 / 2) * viewWidth) - 25,
+              child: Text("#",
+                  style: (TextStyle(fontSize: 16, color: Colors.white))),
             ),
             Positioned(
-              top: ((1/5) * viewHeight) + 80,
-              left: ((1/2) * viewWidth) - 45,
-              child: Text("Quotes", style: (TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.5)))),
+              top: ((1 / 5) * viewHeight) + 80,
+              left: ((1 / 2) * viewWidth) - 45,
+              child: Text("Quotes",
+                  style: (TextStyle(
+                      fontSize: 14, color: Colors.white.withOpacity(0.5)))),
             ),
             //Followers
             Positioned(
-              top: ((1/5) * viewHeight) + 50,
-              left: ((1/2) * viewWidth) + 45,
-              child: Text("#", style: (TextStyle(fontSize: 16, color: Colors.white))),
+              top: ((1 / 5) * viewHeight) + 50,
+              left: ((1 / 2) * viewWidth) + 45,
+              child: Text("#",
+                  style: (TextStyle(fontSize: 16, color: Colors.white))),
             ),
             Positioned(
-              top: ((1/5) * viewHeight) + 80,
-              left: ((1/2) * viewWidth) + 20,
-              child: Text("Followers", style: (TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.5)))),
+              top: ((1 / 5) * viewHeight) + 80,
+              left: ((1 / 2) * viewWidth) + 20,
+              child: Text("Followers",
+                  style: (TextStyle(
+                      fontSize: 14, color: Colors.white.withOpacity(0.5)))),
             ),
             //Following
             Positioned(
-              top: ((1/5) * viewHeight) + 50,
-              left: ((1/2) * viewWidth) + 120,
-              child: Text("#", style: (TextStyle(fontSize: 16, color: Colors.white))),
+              top: ((1 / 5) * viewHeight) + 50,
+              left: ((1 / 2) * viewWidth) + 120,
+              child: Text("#",
+                  style: (TextStyle(fontSize: 16, color: Colors.white))),
             ),
             Positioned(
-              top: ((1/5) * viewHeight) + 80,
-              left: ((1/2) * viewWidth) + 95,
-              child: Text("Following", style: (TextStyle(fontSize: 14, color: Colors.white.withOpacity(0.5)))),
+              top: ((1 / 5) * viewHeight) + 80,
+              left: ((1 / 2) * viewWidth) + 95,
+              child: Text("Following",
+                  style: (TextStyle(
+                      fontSize: 14, color: Colors.white.withOpacity(0.5)))),
             ),
             // Positioned(
             //   child: Column(
@@ -111,7 +125,7 @@ class _ProfilePage extends State<ProfilePage> {
             //             Expanded(
             //               child: BrandButton(
             //                   onTap:() {
-                                
+
             //                   },
             //               ),
             //             ),

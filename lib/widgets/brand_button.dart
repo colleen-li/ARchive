@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:heroicons/heroicons.dart';
 
 enum BrandButtonType { matte, accent }
 
@@ -7,7 +9,7 @@ class BrandButton extends StatefulWidget {
   final String label;
   final VoidCallback onTap;
   final AssetImage? image;
-  final IconData? icon;
+  final HeroIcon? icon;
   final BrandButtonType type;
   final bool disabled;
   final bool loading;
@@ -60,7 +62,7 @@ class _BrandButtonState extends State<BrandButton> {
             child: Container(
               decoration: BoxDecoration(
                 color: BrandButtonType.matte == widget.type
-                    ? const Color.fromARGB(255, 30, 30, 30)
+                    ? const Color.fromARGB(255, 21, 21, 21)
                     : const Color.fromARGB(255, 15, 15, 15),
                 borderRadius: BorderRadius.circular(5),
               ),
@@ -74,21 +76,16 @@ class _BrandButtonState extends State<BrandButton> {
                         children: [
                           if (widget.image != null)
                             Image(image: widget.image!, width: 20, height: 20),
-                          if (widget.icon != null)
-                            Icon(widget.icon,
-                                color: BrandButtonType.matte == widget.type
-                                    ? const Color.fromARGB(255, 177, 177, 177)
-                                    : const Color.fromARGB(255, 255, 255, 255)),
+                          if (widget.icon != null) widget.icon!,
                           if ((widget.image != null || widget.icon != null) &&
                               widget.label != "")
                             const SizedBox(width: 5),
                           Text(
                             widget.label,
                             style: TextStyle(
-                              color: BrandButtonType.accent == widget.type
-                                  ? const Color.fromARGB(255, 177, 177, 177)
-                                  : const Color.fromARGB(255, 255, 255, 255),
-                            ),
+                                color: BrandButtonType.accent == widget.type
+                                    ? const Color.fromARGB(255, 177, 177, 177)
+                                    : Colors.white.withOpacity(0.50)),
                           )
                         ],
                       ),
