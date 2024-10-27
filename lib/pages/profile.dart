@@ -22,6 +22,11 @@ class _ProfilePage extends State<ProfilePage> {
     final viewWidth = MediaQuery.of(context).size.width;
     final viewHeight = MediaQuery.of(context).size.height;
 
+    final List<String> quotes = <String>[
+      "Hello from ARchive!",
+      "Programming can be tough, but persistence is key. Stick with it, and you'll master Java. Programming challenges your creativity and sharpens your mind. Every line of Java code contributes to your growth. The only way to learn a new programming language is by writing programs in it."
+    ];
+
     return CupertinoPageScaffold(
       child: SafeArea(
           child:
