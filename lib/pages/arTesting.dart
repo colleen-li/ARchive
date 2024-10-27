@@ -32,31 +32,16 @@ class _ArTesting extends State<ArTesting> {
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
-<<<<<<< HEAD
     child: GestureDetector(
-      // onScaleStart: _onScaleStart,
-      // onScaleUpdate: _onScaleUpdate,
       child: ARKitSceneView(
-        showFeaturePoints: false,
+        showFeaturePoints: true,
         enableTapRecognizer: true,
         onARKitViewCreated: onARKitViewCreated,
-        planeDetection: ARPlaneDetection.vertical,
+        planeDetection: ARPlaneDetection.horizontalAndVertical,
         environmentTexturing: ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
       ),
     ),
   );
-=======
-          child: GestureDetector(
-              // onScaleStart: _onScaleStart,
-              // onScaleUpdate: _onScaleUpdate,
-              child: ARKitSceneView(
-        showFeaturePoints: true,
-        onARKitViewCreated: onARKitViewCreated,
-        planeDetection: ARPlaneDetection.horizontalAndVertical,
-        environmentTexturing:
-            ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
-      )));
->>>>>>> 8f0e1a8ee4b71878e1e5172aee4447fb87adad98
 
   void onARKitViewCreated(ARKitController arkitController) {
     this.arkitController = arkitController;
@@ -68,16 +53,14 @@ class _ArTesting extends State<ArTesting> {
     if (nodesList.isNotEmpty) {
       final tappedNode = nodesList.first;
 
-      // if (tappedNode.anchor is ARKitPlaneAnchor) {
-      //   _addPlaneAtPosition(tappedNode.worldTransform, tappedNode.anchor as ARKitPlaneAnchor);
-      // }
-
-      _addPlaneAtPosition(tappedNode.worldTransform);
+      if (tappedNode.anchor is ARKitPlaneAnchor) {
+        _addPlaneAtPosition(tappedNode.worldTransform, tappedNode.anchor as ARKitPlaneAnchor);
+      }
       
     }
   }
 
-  void _addPlaneAtPosition(Matrix4 transform) {
+  void _addPlaneAtPosition(Matrix4 transform, ARKitPlaneAnchor anchor) {
 
     // Extract the positions from the tapped point
     final position = vector.Vector3(
@@ -103,13 +86,13 @@ class _ArTesting extends State<ArTesting> {
     );
 
     // Normal rotation
-    // final rotationMatrix = transform.getRotation();
-    // final quaternion = vector.Quaternion.fromRotation(rotationMatrix);
-    // final rotationVector4 = vector.Vector4(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+    final rotationMatrix = transform.getRotation();
+    final quaternion = vector.Quaternion.fromRotation(rotationMatrix);
+    final rotationVector4 = vector.Vector4(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
 
-    // final rotation = vector.Vector4(anchor.transform[0], anchor.transform[5], anchor.transform[10], 0);
+    final rotation = vector.Vector4(anchor.transform[0], anchor.transform[5], anchor.transform[10], 0);
 
-    final rotation = vector.Vector4(1,1,1,1);
+    // final rotation = vector.Vector4(1,1,1,1);
 
     // Define plane position
     planeNode = ARKitNode(
@@ -123,84 +106,5 @@ class _ArTesting extends State<ArTesting> {
     debugPrint("Adding plane at: $position");
     debugPrint("Plane size: width=${plane!.width.value}, height=${plane!.height.value}");
     debugPrint("$rotation");
-  }
-
-  // void _onScaleStart(ScaleStartDetails details) {
-  //   initialFocalPoint = details.focalPoint;
-  //   if (planeNode != null) {
-  //     initialPlanePosition = planeNode!.position;
-  //   }
-  // }
-
-  // void _handleAddAnchor(ARKitAnchor anchor) {
-  //   if (anchor is ARKitPlaneAnchor) {
-  //     _addPlane(arkitController, anchor);
-  //     planePlaced = true;
-  //     debugPrint("Created!");
-  //   }
-  // }
-
-  // void _handleUpdateAnchor(ARKitAnchor anchor) {
-  //   // Throttle updates to once every 100 ms
-  //   final now = DateTime.now();
-  //   if (lastUpdateTime != null && now.difference(lastUpdateTime!).inMilliseconds < 100) {
-  //     return;
-  //   }
-  //   lastUpdateTime = now;
-
-  //   if (anchor.identifier != anchorId || anchor is! ARKitPlaneAnchor) {
-  //     return;
-  //   }
-  //   if (planeNode != null) {
-  //     planeNode?.position = vector.Vector3(anchor.center.x, 0, anchor.center.z);
-  //     plane?.width.value = anchor.extent.x;
-  //     plane?.height.value = anchor.extent.z;
-  //   }
-  // }
-
-  // void _addPlane(ARKitController controller, ARKitPlaneAnchor anchor) {
-  //   anchorId = anchor.identifier;
-
-  //   ARKitMaterial imageMaterial = ARKitMaterial(
-  //     diffuse: ARKitMaterialProperty.image('assets/images/background.jpg'), // Ensure this is optimized
-  //     transparency: 1.0,
-  //   );
-
-  //   plane = ARKitPlane(
-  //     width: anchor.extent.x,
-  //     height: anchor.extent.z,
-  //     materials: [imageMaterial],
-  //   );
-
-  //   planeNode = ARKitNode(
-  //     geometry: plane,
-  //     position: vector.Vector3(anchor.center.x, 0, anchor.center.z),
-  //     rotation: vector.Vector4(1, 0, 0, -math.pi / 2),
-  //   );
-
-  //   controller.add(planeNode!, parentNodeName: anchor.nodeName);
-  //   debugPrint("Plane added with ID: ${planeNode!.name}");
-  // }
-
-  // void _onScaleStart(ScaleStartDetails details) {
-  //   initialFocalPoint = details.focalPoint;
-  //   if (planeNode != null) {
-  //     initialPlanePosition = planeNode!.position;
-  //   }
-  // }
-
-  void _onScaleUpdate(ScaleUpdateDetails details) {
-    if (initialFocalPoint != null && initialPlanePosition != null) {
-      double dx = details.focalPoint.dx - initialFocalPoint!.dx;
-      double dy = details.focalPoint.dy - initialFocalPoint!.dy;
-
-<<<<<<< HEAD
-      // Debounce scale updates (adjust the multiplier as needed)
-      planeNode!.position = initialPlanePosition! + vector.Vector3(dx * 0.01, 0, dy * 0.01);
-=======
-      planeNode!.position =
-          initialPlanePosition! + vector.Vector3(dx * 0.01, 0, dy * 0.01);
->>>>>>> 8f0e1a8ee4b71878e1e5172aee4447fb87adad98
-    }
   }
 }

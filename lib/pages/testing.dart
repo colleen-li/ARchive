@@ -1,66 +1,84 @@
+import 'dart:math' as math;
 import 'package:arkit_plugin/arkit_plugin.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 
-class TapPage extends StatefulWidget {
+class Test extends StatefulWidget {
+  const Test({super.key});
+
   @override
-  _TapPageState createState() => _TapPageState();
+  State<Test> createState() => _Test();
 }
 
-class _TapPageState extends State<TapPage> {
+class _Test extends State<Test> {
   late ARKitController arkitController;
-  ARKitSphere? sphere;
 
   @override
-  void dispose() {
-    arkitController.dispose();
-    super.dispose();
-  }
-
-  @override
-  Widget build(BuildContext context) => CupertinoPageScaffold(
-    child: GestureDetector(
-      child: ARKitSceneView(
-        showFeaturePoints: true,
-        onARKitViewCreated: onARKitViewCreated,
-        planeDetection: ARPlaneDetection.vertical,
-        environmentTexturing: ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
+  Widget build(BuildContext context) {
+    return CupertinoPageScaffold(
+      navigationBar: CupertinoNavigationBar(
+        middle: Text('AR Text Tool'),
       ),
-    ),
-  );
+      child: Stack(
+        children: [
+          ARKitSceneView(
+            showFeaturePoints: false,
+            enableTapRecognizer: true,
+            onARKitViewCreated: onARKitViewCreated,
+            planeDetection: ARPlaneDetection.horizontal,
+            environmentTexturing: ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
+          ),
+          Positioned(
+            bottom: 20,
+            left: 20,
+            child: CupertinoButton(
+              color: CupertinoColors.activeBlue,
+              onPressed: _addText,
+              child: Icon(CupertinoIcons.textformat),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 
   void onARKitViewCreated(ARKitController arkitController) {
     this.arkitController = arkitController;
-    this.arkitController.onNodeTap = (nodes) => onNodeTapHandler(nodes);
-
-    final material =
-        ARKitMaterial(diffuse: ARKitMaterialProperty.color(Colors.yellow));
-    sphere = ARKitSphere(
-      materials: [material],
-      radius: 0.1,
-    );
-
-    final node = ARKitNode(
-      name: 'sphere',
-      geometry: sphere,
-      position: vector.Vector3(0, 0, -0.5),
-    );
-    this.arkitController.add(node);
+    this.arkitController.onARTap = (nodes) => onNodeTapHandler(nodes);
   }
 
-  void onNodeTapHandler(List<String> nodesList) {
-    final name = nodesList.first;
-    final color =
-        (sphere!.materials.value!.first.diffuse as ARKitMaterialColor).color ==
-                Colors.yellow
-            ? Colors.blue
-            : Colors.yellow;
-    sphere!.materials.value = [
-      ARKitMaterial(diffuse: ARKitMaterialProperty.color(color))
-    ];
-    showDialog<void>(
-      context: context,
-      builder: (BuildContext context) =>
-          AlertDialog(content: Text('You tapped on $name')),
+  void onNodeTapHandler(List<ARKitTestResult> nodesList) {
+    if (nodesList.isNotEmpty) {
+      final tappedNode = nodesList.first;
+      _addTextAtPosition(tappedNode.worldTransform);
+    }
+  }
+
+  void _addTextAtPosition(Matrix4 transform) {
+    final position = vector.Vector3(
+      transform.getTranslation().x,
+      transform.getTranslation().y + 0.1,
+      transform.getTranslation().z,
     );
+
+    final textNode = ARKitNode(
+      geometry: ARKitText(
+        text: "Hello AR!",
+        extrusionDepth: 1,
+        materials: [
+          ARKitMaterial(
+            diffuse: ARKitMaterialProperty.color(CupertinoColors.activeBlue),
+          ),
+        ],
+      ),
+      position: position,
+    );
+
+    arkitController.add(textNode);
+    debugPrint("Text added at position: $position");
+  }
+
+  void _addText() {
+    debugPrint("Text button tapped! Tap on the screen to place text.");
   }
 }

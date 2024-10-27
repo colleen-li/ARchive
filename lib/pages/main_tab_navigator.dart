@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:archive/pages/profile.dart';
+import 'package:archive/widgets/ar_screen.dart'; // Importing ARWidget
 import 'package:heroicons/heroicons.dart';
 
 class MainTabNavigator extends StatelessWidget {
@@ -21,19 +22,17 @@ class MainTabNavigator extends StatelessWidget {
           BottomNavigationBarItem(
               icon: HeroIcon(
             HeroIcons.homeModern,
-            style: HeroIconStyle.outline, // Outlined icons are used by default.
+            style: HeroIconStyle.outline,
             color: Colors.white,
             size: 30,
           )),
           BottomNavigationBarItem(
               icon: HeroIcon(
             HeroIcons.user,
-            style: HeroIconStyle.outline, // Outlined icons are used by default.
+            style: HeroIconStyle.outline,
             color: Colors.white,
             size: 30,
-          )
-              // label: "Bulletin"
-              ),
+          )),
         ],
       ),
       tabBuilder: (BuildContext context, int index) {
