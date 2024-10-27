@@ -4,7 +4,6 @@ import 'package:vector_math/vector_math_64.dart' as vector;
 import 'package:flutter/cupertino.dart';
 import 'dart:math' as math;
 
-
 class ArTesting extends StatefulWidget {
   const ArTesting({super.key});
 
@@ -32,16 +31,17 @@ class _ArTesting extends State<ArTesting> {
 
   @override
   Widget build(BuildContext context) => CupertinoPageScaffold(
-    child: GestureDetector(
-      child: ARKitSceneView(
-        showFeaturePoints: true,
-        enableTapRecognizer: true,
-        onARKitViewCreated: onARKitViewCreated,
-        planeDetection: ARPlaneDetection.horizontalAndVertical,
-        environmentTexturing: ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
-      ),
-    ),
-  );
+        child: GestureDetector(
+          child: ARKitSceneView(
+            showFeaturePoints: true,
+            enableTapRecognizer: true,
+            onARKitViewCreated: onARKitViewCreated,
+            planeDetection: ARPlaneDetection.horizontalAndVertical,
+            environmentTexturing:
+                ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
+          ),
+        ),
+      );
 
   void onARKitViewCreated(ARKitController arkitController) {
     this.arkitController = arkitController;
@@ -54,14 +54,13 @@ class _ArTesting extends State<ArTesting> {
       final tappedNode = nodesList.first;
 
       if (tappedNode.anchor is ARKitPlaneAnchor) {
-        _addPlaneAtPosition(tappedNode.worldTransform, tappedNode.anchor as ARKitPlaneAnchor);
+        _addPlaneAtPosition(
+            tappedNode.worldTransform, tappedNode.anchor as ARKitPlaneAnchor);
       }
-      
     }
   }
 
   void _addPlaneAtPosition(Matrix4 transform, ARKitPlaneAnchor anchor) {
-
     // Extract the positions from the tapped point
     final position = vector.Vector3(
       transform.getTranslation().x,
@@ -88,9 +87,11 @@ class _ArTesting extends State<ArTesting> {
     // Normal rotation
     final rotationMatrix = transform.getRotation();
     final quaternion = vector.Quaternion.fromRotation(rotationMatrix);
-    final rotationVector4 = vector.Vector4(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
+    final rotationVector4 =
+        vector.Vector4(quaternion.x, quaternion.y, quaternion.z, quaternion.w);
 
-    final rotation = vector.Vector4(anchor.transform[0], anchor.transform[5], anchor.transform[10], 0);
+    final rotation = vector.Vector4(
+        anchor.transform[0], anchor.transform[5], anchor.transform[10], 0);
 
     // final rotation = vector.Vector4(1,1,1,1);
 
@@ -98,13 +99,14 @@ class _ArTesting extends State<ArTesting> {
     planeNode = ARKitNode(
       geometry: plane,
       position: position,
-      rotation:  rotation,
+      rotation: rotation,
     );
 
     arkitController.add(planeNode!);
     debugPrint("Plane added at wall location with ID: ${planeNode!.name}");
     debugPrint("Adding plane at: $position");
-    debugPrint("Plane size: width=${plane!.width.value}, height=${plane!.height.value}");
+    debugPrint(
+        "Plane size: width=${plane!.width.value}, height=${plane!.height.value}");
     debugPrint("$rotation");
   }
 }

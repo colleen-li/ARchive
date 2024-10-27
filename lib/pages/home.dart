@@ -32,29 +32,12 @@ class _HomePage extends State<HomePage> {
             fit: BoxFit.contain,
           ),
         ),
-        Expanded(
+        SizedBox(
+            height: MediaQuery.of(context).size.height - 350,
             child: Padding(
-          padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
-          child: Stack(
-            children: [
-              ARWidget(),
-              Positioned(
-                left: 15,
-                bottom: 10,
-                child: Container(
-                  width: MediaQuery.of(context).size.width - 50,
-                  child: BrandButton(
-                    label: "ARchive Note",
-                    icon: HeroIcon(HeroIcons.pencil,
-                        color: Colors.white, size: 16),
-                    onTap: () {},
-                    type: BrandButtonType.accent,
-                  ),
-                ),
-              )
-            ],
-          ),
-        )),
+              padding: const EdgeInsets.fromLTRB(10, 0, 10, 10),
+              child: ARWidget(),
+            )),
         const SizedBox(height: 10),
         SizedBox(
           height: 90,

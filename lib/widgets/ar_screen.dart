@@ -1,12 +1,15 @@
+import 'package:archive/widgets/brand_button.dart';
+import 'package:archive/widgets/enter_quote.dart';
 import 'package:arkit_plugin/arkit_plugin.dart';
 import 'package:flutter/material.dart';
+import 'package:heroicons/heroicons.dart';
+import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
 import 'package:flutter/cupertino.dart';
 import 'dart:math' as math;
 import 'dart:ui' as ui;
 import 'dart:typed_data';
 import 'dart:convert';
-
 
 class ARWidget extends StatefulWidget {
   const ARWidget({Key? key}) : super(key: key);
@@ -28,6 +31,8 @@ class _ARWidgetState extends State<ARWidget> {
   bool planePlaced = false;
   DateTime? lastUpdateTime;
 
+  bool _isEditing = false;
+
   @override
   void dispose() {
     arkitController.dispose();
@@ -37,32 +42,83 @@ class _ARWidgetState extends State<ARWidget> {
   @override
   Widget build(BuildContext context) {
     return ClipRRect(
-      borderRadius: BorderRadius.circular(15), 
-      child: CupertinoPageScaffold(
-        child: GestureDetector(
-          onScaleStart: (details) {
-            initialFocalPoint = details.focalPoint;
-            if (planeNode != null) {
-              currentPlanePosition = planeNode!.position;
-            }
-          },
-          onScaleUpdate: (details) {
-            if (details.scale != 1.0) {
-              _onScaleUpdate(details);
-            } else {
-              _onPanUpdate(details);
-            }
-          },
-          child: ARKitSceneView(
-            showFeaturePoints: false,
-            enableTapRecognizer: true,
-            onARKitViewCreated: onARKitViewCreated,
-            planeDetection: ARPlaneDetection.vertical,
-            environmentTexturing: ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
+        borderRadius: BorderRadius.circular(15),
+        child: CupertinoPageScaffold(
+            child: Stack(children: [
+          GestureDetector(
+            onScaleStart: (details) {
+              initialFocalPoint = details.focalPoint;
+              if (planeNode != null) {
+                currentPlanePosition = planeNode!.position;
+              }
+            },
+            onScaleUpdate: (details) {
+              if (details.scale != 1.0) {
+                _onScaleUpdate(details);
+              } else {
+                _onPanUpdate(details);
+              }
+            },
+            child: ARKitSceneView(
+              showFeaturePoints: false,
+              enableTapRecognizer: true,
+              onARKitViewCreated: onARKitViewCreated,
+              planeDetection: ARPlaneDetection.vertical,
+              environmentTexturing:
+                  ARWorldTrackingConfigurationEnvironmentTexturing.automatic,
+            ),
           ),
-        ),
-      ),
-    );
+          if (_isEditing)
+            Positioned(
+                left: 15,
+                top: 10,
+                child: SizedBox(
+                    width: MediaQuery.of(context).size.width - 50,
+                    child: Row(
+                      children: [
+                        Expanded(
+                            child: BrandButton(
+                          label: "Clear",
+                          icon: HeroIcon(HeroIcons.trash,
+                              color: Colors.white.withOpacity(0.5)),
+                          onTap: () {},
+                          type: BrandButtonType.matte,
+                        )),
+                        const SizedBox(width: 10),
+                        Expanded(
+                          child: BrandButton(
+                            label: "ARchive",
+                            icon: HeroIcon(HeroIcons.arrowRightStartOnRectangle,
+                                color: Colors.white.withOpacity(0.5)),
+                            onTap: () {
+                              setState(() {
+                                _isEditing = !_isEditing;
+                              });
+                            },
+                            type: BrandButtonType.matte,
+                          ),
+                        )
+                      ],
+                    ))),
+          Positioned(
+            left: 15,
+            bottom: 10,
+            child: SizedBox(
+              width: MediaQuery.of(context).size.width - 50,
+              child: BrandButton(
+                disabled: _isEditing,
+                label: _isEditing ? "Tap add to add note!" : "ARchive Note",
+                icon: HeroIcon(HeroIcons.pencil, color: Colors.white, size: 16),
+                onTap: () {
+                  setState(() {
+                    _isEditing = !_isEditing;
+                  });
+                },
+                type: BrandButtonType.accent,
+              ),
+            ),
+          ),
+        ])));
   }
 
   void onARKitViewCreated(ARKitController arkitController) {
@@ -74,10 +130,23 @@ class _ARWidgetState extends State<ARWidget> {
     if (nodesList.isNotEmpty) {
       final tappedNode = nodesList.first;
 
-      final quote = "Hello World!";
+      //final quote = "Hello World!";
 
-      _addPlaneAtPosition(tappedNode.worldTransform, quote);
-
+      showCupertinoModalBottomSheet(
+        context: context,
+        shape: Border.all(
+            width: 1.0, color: const Color.fromARGB(255, 23, 23, 23)),
+        topRadius: Radius.circular(10),
+        backgroundColor: const Color.fromARGB(255, 10, 10, 10),
+        builder: (context) => SizedBox(
+            height: 300,
+            child: EnterQuote(
+              onSubmit: (quote) {
+                Navigator.of(context).pop();
+                _addPlaneAtPosition(tappedNode.worldTransform, quote);
+              },
+            )),
+      );
     }
   }
 
@@ -95,7 +164,8 @@ class _ARWidgetState extends State<ARWidget> {
 
     ARKitMaterial imageMaterial = ARKitMaterial(
       // diffuse: ARKitMaterialProperty.image('assets/images/background.jpg'),
-      diffuse: ARKitMaterialProperty.image('data:image/png;base64,$canvasImage'),
+      diffuse:
+          ARKitMaterialProperty.image('data:image/png;base64,$canvasImage'),
       transparency: 1.0,
     );
 
@@ -116,7 +186,8 @@ class _ARWidgetState extends State<ARWidget> {
     arkitController.add(planeNode!);
     debugPrint("Plane added at wall location with ID: ${planeNode!.name}");
     debugPrint("Adding plane at: $position");
-    debugPrint("Plane size: width=${plane!.width.value}, height=${plane!.height.value}");
+    debugPrint(
+        "Plane size: width=${plane!.width.value}, height=${plane!.height.value}");
     debugPrint("$rotation");
   }
 
@@ -124,23 +195,28 @@ class _ARWidgetState extends State<ARWidget> {
     if (initialFocalPoint != null && initialPlanePosition != null) {
       double dx = details.focalPoint.dx - initialFocalPoint!.dx;
       double dy = details.focalPoint.dy - initialFocalPoint!.dy;
-      planeNode!.position = initialPlanePosition! + vector.Vector3(dx * 0.01, 0, dy * 0.01);
+      planeNode!.position =
+          initialPlanePosition! + vector.Vector3(dx * 0.01, 0, dy * 0.01);
     }
   }
 
   void _onPanUpdate(ScaleUpdateDetails details) {
-    if (initialFocalPoint != null && currentPlanePosition != null && planeNode != null) {
+    if (initialFocalPoint != null &&
+        currentPlanePosition != null &&
+        planeNode != null) {
       // Calculate the movement based on the focal point
       double dx = details.focalPoint.dx - initialFocalPoint!.dx;
       double dy = details.focalPoint.dy - initialFocalPoint!.dy;
 
       // Update the position of the planeNode
-      planeNode!.position = currentPlanePosition! + vector.Vector3(dx * 0.01, 0, dy * 0.01);
+      planeNode!.position =
+          currentPlanePosition! + vector.Vector3(dx * 0.01, 0, dy * 0.01);
     }
   }
 
   Future<String> getCanvasImageBase64(String str) async {
-    var builder = ui.ParagraphBuilder(ui.ParagraphStyle(fontStyle: FontStyle.normal));
+    var builder =
+        ui.ParagraphBuilder(ui.ParagraphStyle(fontStyle: FontStyle.normal));
 
     builder.pushStyle(ui.TextStyle(
       fontSize: 24,
@@ -157,18 +233,18 @@ class _ARWidgetState extends State<ARWidget> {
     final recorder = ui.PictureRecorder();
     var newCanvas = Canvas(recorder);
 
-    newCanvas.drawParagraph(paragraph, Offset(0,0));
+    newCanvas.drawParagraph(paragraph, Offset(0, 0));
 
     final picture = recorder.endRecording();
     var res = await picture.toImage(imageWidth.toInt(), imageHeight.toInt());
     ByteData? data = await res.toByteData(format: ui.ImageByteFormat.png);
 
     if (data != null) {
-        final buffer = data.buffer.asUint8List();        
-        String base64String = base64Encode(buffer);
-        return base64String;
+      final buffer = data.buffer.asUint8List();
+      String base64String = base64Encode(buffer);
+      return base64String;
     } else {
-        throw Exception("Failed to convert image to byte data");
+      throw Exception("Failed to convert image to byte data");
     }
   }
 }

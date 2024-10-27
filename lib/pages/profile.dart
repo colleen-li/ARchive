@@ -240,7 +240,7 @@ class _ProfilePage extends State<ProfilePage> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               Padding(
-                  padding: const EdgeInsets.fromLTRB(0, 0, 10, 0),
+                  padding: const EdgeInsets.fromLTRB(0, 0, 13, 0),
                   child: GestureDetector(
                     onTap: () async {
                       await FirebaseAuth.instance.signOut();
@@ -251,7 +251,7 @@ class _ProfilePage extends State<ProfilePage> {
                     child: Text("Log Out",
                         style: TextStyle(
                             fontSize: 14,
-                            color: Colors.white.withOpacity(0.5))),
+                            color: Colors.white.withOpacity(0.75))),
                   ))
             ],
           ),
