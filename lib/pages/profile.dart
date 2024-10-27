@@ -161,6 +161,11 @@ class _ProfilePage extends State<ProfilePage> {
                 ],)
             ),
             Container(
+              margin: EdgeInsets.only(top: 10, left: 10),
+              alignment: Alignment.centerLeft,
+              child: Text("Your Quote Collection", style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold)),
+            ),
+            Container(
               padding: const EdgeInsets.fromLTRB(10, 10, 10, 10),
               child: PostToolbar(
                 liked: _liked,
