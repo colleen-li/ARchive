@@ -63,7 +63,7 @@ class _BrandButtonState extends State<BrandButton> {
               decoration: BoxDecoration(
                 color: BrandButtonType.matte == widget.type
                     ? const Color.fromARGB(255, 21, 21, 21)
-                    : const Color.fromARGB(255, 15, 15, 15),
+                    : const Color(0xff785964),
                 borderRadius: BorderRadius.circular(5),
               ),
               width: double.infinity,
@@ -84,7 +84,7 @@ class _BrandButtonState extends State<BrandButton> {
                             widget.label,
                             style: TextStyle(
                                 color: BrandButtonType.accent == widget.type
-                                    ? const Color.fromARGB(255, 177, 177, 177)
+                                    ? const Color.fromARGB(255, 255, 255, 255)
                                     : Colors.white.withOpacity(0.50)),
                           )
                         ],
