@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:archive/widgets/brand_button.dart';
+import 'package:archive/widgets/post_toolbar.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
