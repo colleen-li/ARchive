@@ -141,6 +141,12 @@ class _ARWidgetState extends State<ARWidget> {
 
   Future<String> getCanvasImageBase64(String str) async {
     var builder = ui.ParagraphBuilder(ui.ParagraphStyle(fontStyle: FontStyle.normal));
+
+    builder.pushStyle(ui.TextStyle(
+      fontSize: 24,
+      fontWeight: ui.FontWeight.bold,
+      color: const Color(0xFFFFFFFF),
+    ));
     builder.addText(str);
     ui.Paragraph paragraph = builder.build();
 
