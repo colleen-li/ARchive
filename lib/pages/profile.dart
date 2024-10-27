@@ -1,3 +1,5 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -64,7 +66,10 @@ class _ProfilePage extends State<ProfilePage> {
             Positioned(
               top: (1 / 5) * viewHeight,
               left: ((1 / 2) * viewWidth) - 45,
-              child: Text("USERNAME",
+              child: Text(
+                  FirebaseAuth.instance.currentUser?.displayName != null
+                      ? FirebaseAuth.instance.currentUser!.displayName!
+                      : "ARchive User",
                   style: (TextStyle(
                     fontWeight: FontWeight.bold,
                   ))),
