@@ -4,7 +4,7 @@ Transforming Empty Spaces into an Interconnected World
 
 ## Inspiration
 
-With over 40,000 students at Purdue, it’s easy to feel isolated and unheard, especially for women in tech who may navigate male-dominated industries alone. We created ARchive to provide a platform for students to share inspiring quotes and express themselves openly, transforming empty spaces on campus into an interconnected virtual world. Targeted for women and minorities, this app empowers their voices and contributions that may be overlooked on a daily basis. *ARchive reminds everyone that they are not alone and their voice matters.*
+With over 40,000 students at Purdue, it’s easy to feel isolated and unheard, especially for women in tech who may navigate male-dominated industries alone. We created ARchive to provide a platform for students to share inspiring quotes and express themselves openly, transforming empty spaces on campus into an interconnected virtual world. Targeted for women and minorities, this app empowers their voices and contributions that may be overlooked on a daily basis. **ARchive reminds everyone that they are not alone and their voice matters.**
 
 ## What it does
 
