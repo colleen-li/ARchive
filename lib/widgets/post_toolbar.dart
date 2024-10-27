@@ -1,20 +1,22 @@
+import 'package:archive/api/models/post.dart';
 import 'package:archive/widgets/brand_button.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:heroicons/heroicons.dart';
 import 'package:modal_bottom_sheet/modal_bottom_sheet.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class PostToolbar extends StatefulWidget {
-  final String date;
-  final int likes;
+  final IPost post;
   final bool liked;
+  final int likes;
   final Function onLike;
 
   const PostToolbar({
     required this.onLike,
-    required this.likes,
     required this.liked,
-    required this.date,
+    required this.likes,
+    required this.post,
     super.key,
   });
 
@@ -23,6 +25,15 @@ class PostToolbar extends StatefulWidget {
 }
 
 class _PostToolbar extends State<PostToolbar> {
+  static void navigateTo(double lat, double lng) async {
+    var uri = Uri.parse("google.navigation:q=$lat,$lng&mode=d");
+    if (await canLaunchUrl(uri)) {
+      await launchUrl(uri);
+    } else {
+      throw 'Could not launch ${uri.toString()}';
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -84,7 +95,9 @@ class _PostToolbar extends State<PostToolbar> {
                 color: Color.fromARGB(255, 120, 89, 100),
                 size: 24,
               ),
-              onTap: () => {},
+              onTap: () => {
+                navigateTo(widget.post.latitude, widget.post.longitude),
+              },
             ),
           ),
           const SizedBox(width: 10),
@@ -103,7 +116,7 @@ class _PostToolbar extends State<PostToolbar> {
                         fontSize: 12, color: Colors.white.withOpacity(0.5)),
                   ),
                   Text(
-                    widget.date,
+                    "${widget.post.imprinted.month}/${widget.post.imprinted.day}/${widget.post.imprinted.year}",
                     style: TextStyle(
                         fontSize: 12, color: Colors.white.withOpacity(0.5)),
                   ),

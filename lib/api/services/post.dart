@@ -4,6 +4,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:vector_math/vector_math_64.dart' as vector;
+import 'package:geoflutterfire_plus/geoflutterfire_plus.dart';
 
 class PostService {
   final FirebaseFirestore _firestore = FirebaseFirestore.instance;
@@ -37,9 +38,10 @@ class PostService {
             debugPrint("Added Data with ID: ${documentSnapshot.id}"));
   }
 
-  Future<QuerySnapshot<IPost>> getPosts() {
+  Future<QuerySnapshot<IPost>> getPostsById() {
     return _firestore
         .collection(_getCollectionPath())
+        .where("userId", isEqualTo: _auth.currentUser!.uid)
         .withConverter(
           fromFirestore: IPost.fromFirestore,
           toFirestore: (IPost post, options) => post.toFirestore(),

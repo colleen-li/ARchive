@@ -10,6 +10,7 @@ import 'package:flutter/services.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:archive/widgets/brand_button.dart';
 import 'package:archive/widgets/post_toolbar.dart';
+import 'package:heroicons/heroicons.dart';
 
 class ProfilePage extends StatefulWidget {
   const ProfilePage({super.key});
@@ -21,11 +22,12 @@ class ProfilePage extends StatefulWidget {
 class _ProfilePage extends State<ProfilePage> {
   PostService postService = PostService();
   List<IPost> _quotes = [];
+  bool _loading = false;
 
   @override
   void initState() {
     super.initState();
-    postService.getPosts().then(
+    postService.getPostsById().then(
       (value) {
         debugPrint("Got posts: ${value.docs.length}");
         setState(() {
@@ -275,6 +277,30 @@ class _ProfilePage extends State<ProfilePage> {
                 child: Text("Your Quote Collection",
                     style:
                         TextStyle(fontSize: 18, fontWeight: FontWeight.w600)),
+              ),
+              SizedBox(width: 10),
+              SizedBox(
+                width: 35,
+                height: 35,
+                child: BrandButton(
+                  loading: _loading,
+                  onTap: () async {
+                    setState(() {
+                      _loading = true;
+                    });
+                    await postService.getPostsById().then(
+                      (value) {
+                        debugPrint("Got posts: ${value.docs.length}");
+                        setState(() {
+                          _quotes = value.docs.map((e) => e.data()).toList();
+                          _loading = false;
+                        });
+                      },
+                    );
+                  },
+                  icon: HeroIcon(HeroIcons.arrowPath,
+                      size: 20, color: Colors.white),
+                ),
               )
             ],
           ),

@@ -46,8 +46,7 @@ class _Quote extends State<Quote> {
             ),
           ),
           PostToolbar(
-            date:
-                "${widget.quote.imprinted.month}/${widget.quote.imprinted.day}/${widget.quote.imprinted.year}",
+            post: widget.quote,
             likes: widget.quote.likes + (_liked ? 1 : 0),
             liked: _liked,
             onLike: () {
