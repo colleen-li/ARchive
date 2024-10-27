@@ -175,7 +175,7 @@ class _ARWidgetState extends State<ARWidget> {
       materials: [imageMaterial],
     );
 
-    final rotation = vector.Vector4(1, 1, 1, 1);
+    final rotation = vector.Vector4(0, 1, 0, math.pi/2);
 
     planeNode = ARKitNode(
       geometry: plane,
